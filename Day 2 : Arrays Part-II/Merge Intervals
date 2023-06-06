@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> output ;
+        int n = intervals.size() ;
+        sort(intervals.begin(),intervals.end()) ;
+        for(auto interval : intervals ){
+//if output is empty or output.back()[1]<interval[0] means [2,*(6)] and [*(8),10]--> direct push
+            if(output.empty() || output.back()[1] < interval[0]){
+                output.push_back(interval) ;
+            }
+//in else we are just taking max number for interval like [1,3] and [2,6] and we are placing it in-place like here output.back()[1] is 3 and interval[1] is 6 .. so we are taking max element of both which is 6 
+            //first [1,3] is pushed to output 
+            //second max(3,6) = 6 
+            //third step --> putting 6 in place of 3 in else condition
+
+            else{
+                output.back()[1] = max(output.back()[1],interval[1]) ;
+            }
+        }
+        return output ;
+    }
+};
