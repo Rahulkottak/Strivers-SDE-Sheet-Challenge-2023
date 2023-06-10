@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int getLength(ListNode* head){
+        int cnt=0;
+        while(head){
+            head=head->next ;
+            cnt++ ;
+        }
+        return cnt ;
+    }
+
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(!headA || !headB) return NULL ;
+    
+    //step:1 Get length>>
+        int len1=getLength(headA),len2=getLength(headB);
+
+    //step:2 traverse in longer linked list :
+    if(len1>len2){
+        while(len1>len2){
+            headA=headA->next ;
+            len1-- ;
+        }
+    }
+    else if(len1<len2){
+        while(len1<len2){
+            headB=headB->next ;
+            len2-- ;
+        }
+    }
+
+    //step 3 : check for intersection point
+    while(headA && headB){
+        if(headA==headB) return headA;
+        headA=headA->next ;
+        headB=headB->next ;
+    }
+    return NULL ;
+
+
+    }
+};
